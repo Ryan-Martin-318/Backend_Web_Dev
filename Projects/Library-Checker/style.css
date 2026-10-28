@@ -1,0 +1,38 @@
+table {
+    border-color: black;
+    border-width: 5px;
+    border-style: double;
+    width: 65%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: whitesmoke;
+}
+.button {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    font-size: medium;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+th {
+    font-size: large;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: beige;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h2 {
+    text-align: center;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+body {
+    background-color: dimgray;
+}
