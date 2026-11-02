@@ -1,0 +1,55 @@
+body {
+    font-family: system-ui, sans-serif;
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    line-height: 1.5;
+    color: #182536
+}
+
+a {
+    color: #174ea6
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0
+}
+
+th,
+td {
+    padding: .65rem;
+    text-align: left;
+    border-bottom: 1px solid #ccd4df
+}
+
+label {
+    display: block;
+    margin-top: 1rem
+}
+
+input[type=text] {
+    width: 100%;
+    max-width: 35rem;
+    padding: .5rem;
+    box-sizing: border-box
+}
+
+button {
+    padding: .45rem .8rem;
+    cursor: pointer
+}
+
+.errors {
+    background: #fff1f0;
+    padding: 1rem 2rem
+}
+
+.inline {
+    margin: 0
+}
+
+.hint {
+    color: #475569
+}
