@@ -26,8 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Collect the validated values into one Song object.
         $song = new Song($title, $artist, (bool) $isFavorite);
         addSong($db, $song);
-        // header('Location: add-song.php');
-        // exit;
+        header('Location: add-song.php');
+        exit;
     }
 }
 ?>
