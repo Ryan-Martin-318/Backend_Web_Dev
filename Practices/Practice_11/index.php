@@ -31,6 +31,7 @@ $songs = $statement->fetchAll();
     <td><?= htmlspecialchars($song['artist']) ?></td>
     <td><?= (int) $song['is_favorite'] === 1 ? '★ Favorite' : '—' ?></td>
     <td>
+        <a href="add-song.php?id=<?= (int) $song['song_id'] ?>">Edit</a>
         <form class="inline" action="index.php" method="post">
             <input type="hidden" name="song_id" value="<?= (int) $song['song_id'] ?>">
             <button type="submit" aria-label="Delete <?= htmlspecialchars($song['title']) ?>">Delete</button>

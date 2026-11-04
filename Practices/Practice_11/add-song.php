@@ -10,6 +10,25 @@ $isFavorite = 0;
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = filter_input(INPUT_POST, 'song_id', FILTER_VALIDATE_INT);
+} elseif (isset($_GET['id'])) {
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+}
+if ($id > 0) {
+    $record = getSong($db, $id);
+    if ($record === false) {
+        exit('No song has that ID.');
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $title = $record['title'];
+        $artist = $record['artist'];
+        $isFavorite = (int) $record['is_favorite'];
+    }
+
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Provided input checks keep this lesson focused on database statements.
     $title = trim($_POST['title']);
     $artist = trim($_POST['artist']);
@@ -21,12 +40,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($artist === '') {
         $errors[] = 'Enter an artist.';
     }
-
     if (!$errors) {
         // Collect the validated values into one Song object.
         $song = new Song($title, $artist, (bool) $isFavorite);
-        addSong($db, $song);
-        header('Location: add-song.php');
+        if ($id > 0) {
+            updateSong($db, $id, $song);
+            header('Location: index.php');
+        } else {
+            addSong($db, $song);
+            header('Location: add-song.php');
+        }
         exit;
     }
 }
@@ -43,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </ul>
 <?php endif; ?>
 <form action="add-song.php" method="post">
+    <input type="hidden" name="song_id" value="<?= $id ?>">
     <label for="title">Song title</label>
     <input type="text" id="title" name="title" maxlength="150" required value="<?= htmlspecialchars($title) ?>">
     <label for="artist">Artist</label>
