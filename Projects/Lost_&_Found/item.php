@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/includes/bootstrap.php';
 require __DIR__ . '/includes/database.php';
 require_once __DIR__ . '/includes/item-functions.php';
 
@@ -23,20 +24,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Campus Lost &amp; Found</title><link rel="stylesheet" href="styles.css"></head>
-<body>
-<h1>Found item</h1>
-<p><a href="index.php">Back to unclaimed items</a></p>
-<h2><?= htmlspecialchars($item['item_name']) ?></h2>
-<p><?= htmlspecialchars($item['description']) ?></p>
-<p>Found at: <?= htmlspecialchars($item['location_found']) ?></p>
-<?php if ((int) $item['claimed'] === 0): ?>
-<form action="item.php" method="post">
-    <input type="hidden" name="item_id" value="<?= $id ?>">
-    <button type="submit">Mark claimed</button>
-</form>
-<?php else: ?>
-<p>This item has already been claimed.</p>
-<?php endif; ?>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Campus Lost &amp; Found</title>
+    </head>
+    <body style="background-color: darkcyan;">
+        <?php include 'includes/navbar.php'; ?>
+        <br>
+        <h3 style="text-align: center; color: white;">Found item</h3>
+        <br>
+        <div class="card" style="max-width: 520px; margin-left: auto; margin-right: auto; background-color: azure;">
+            <div class="card-body">
+                <h4 class="card-title"><?= htmlspecialchars($item['item_name']) ?></h4>
+                <p class="card-subtitle" style="font-size: small;">Found at: <?= htmlspecialchars($item['location_found']) ?></p>
+                <hr>
+                <p class="card-text"><?= htmlspecialchars($item['description']) ?></p>
+                <?php if ((int) $item['claimed'] === 0): ?>
+                    <form action="item.php" style="text-align: center;" method="post">
+                        <input type="hidden" name="item_id" value="<?= $id ?>">
+                        <button style="height: 50px; width: 175;" type="submit" class="theme-primary btn-outline rounded-pill">Mark claimed</button>
+                    </form>
+                <?php else: ?>
+                    <p>This item has already been claimed.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </body>
 </html>

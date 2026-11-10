@@ -10,18 +10,34 @@ function getUnclaimedItems(PDO $db): array
 // Task 1: Retrieve one item using a prepared SELECT and the supplied ID.
 function getItem(PDO $db, int $id)
 {
-    // Prepare the statement, supply the ID, and return the fetched row.
-    return false; // Replace this temporary return with your fetched result.
+    $sql = 'SELECT item_id, item_name, description, location_found, claimed
+            FROM found_items WHERE item_id = :id';
+    $statement = $db->prepare($sql);
+    $statement->execute([':id' => $id]);
+    return $statement->fetch();
 }
 
 // Task 2: Mark only the selected item claimed using a prepared UPDATE.
 function markClaimed(PDO $db, int $id): void
 {
-    // Set claimed to 1. Use the ID to target the correct row.
+    $sql = 'UPDATE found_items
+            SET claimed = 1
+            WHERE item_id = :id';
+    $statement = $db->prepare($sql);
+    $statement->execute([
+        ':id' => $id
+    ]);
 }
 
 // Task 3: Add the supplied object using a prepared INSERT.
 function addItem(PDO $db, FoundItem $item): void
 {
-    // Insert its three properties. Every new item starts unclaimed.
+    $sql = 'INSERT INTO found_items (item_name, description, location_found, claimed)
+            VALUES (:item_name, :description, :location_found, 0)';
+    $statement = $db->prepare($sql);
+    $statement->execute([
+        ':item_name' => $item->itemName,
+        ':description' => $item->description,
+        ':location_found' => $item->locationFound,
+    ]);
 }
