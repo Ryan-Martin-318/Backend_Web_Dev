@@ -22,3 +22,20 @@ function addUser(PDO $db, string $username, string $storedPassword): void
         ':password_hash' => $storedPassword,
     ]);
 }
+// Find one user by username. Returns the row, or false when no user has that username.
+function getUserByUsername(PDO $db, string $username)
+{
+    $sql = 'SELECT user_id, username, password_hash
+            FROM users
+            WHERE username = :username';
+    $statement = $db->prepare($sql);
+    $statement->execute([':username' => $username]);
+    return $statement->fetch();
+}
+
+// Every registered user (used by the admin page)
+function getUsers(PDO $db): array
+{
+    $sql = 'SELECT user_id, username, password_hash FROM users ORDER BY user_id';
+    return $db->query($sql)->fetchAll();
+}
