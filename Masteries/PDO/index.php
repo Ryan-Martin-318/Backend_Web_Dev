@@ -10,7 +10,7 @@
     }
     $sql = 'SELECT animal, quote
             FROM farm_animals';
-    $statement = $db->query($sql);
+    $statement = $db->prepare($sql);
     $rows = $statement->fetchAll();
     foreach($rows as $row) {
         echo $row[0] . ' - ' . $row[1] . '<br>';
