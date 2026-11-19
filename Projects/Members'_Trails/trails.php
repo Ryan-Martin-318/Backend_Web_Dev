@@ -1,7 +1,9 @@
 <?php
-    $dsn = 'mysql:host=localhost;dbname=trail_guide;charset=utf8mb4';
-    $username = 'root';
-    $password = '';
+    require __DIR__ . '/includes/includes.php';
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: login.php');
+        exit;
+    }
     try {
         $db = new PDO($dsn, $username, $password);
     } catch (PDOException $e){
@@ -22,8 +24,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trails</title>
 </head>
-<body>
-    <table>
+<body style="background-color: darkslategray;">
+    <?php getNavbar('Trails'); ?>
+    <table class="table table-primary table-striped" style="margin-top: 20px; width: 50%; margin-left: auto; margin-right: auto; border: 2px solid white;">
         <tr>
             <th>Trail Name</th>
             <th>Trail Difficulty</th>
